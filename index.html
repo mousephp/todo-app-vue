@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+
+<body>
+	<main id="todolist">
+		<h1>
+			Todo List
+			<span>Get things done, one item at a time.</span>
+		</h1>
+
+		<div class="todo-lists" v-if="lists.length">
+			<h3>My Todo Tasks</h3>
+			<ul>
+				<todo-item v-for="(item,index) in lists" :key="item.id" v-on:clicked="clickontoogle"
+					v-bind:class="item.completed ? 'completed' : ''" v-bind:type="item.completed ? 'checkbox' : ''"
+					v-bind:id="item.id " v-bind:title="item.title" v-bind:completed="item.completed"
+					v-on:updatetaskkeydown="updateTask($event, item)" v-on:updatetaskblur="updateTask($event, item)"
+					v-on:delete="deleteTask($event, item)">
+				</todo-item>
+			</ul>
+		</div>
+
+		<form name="newform" method="post" v-on:submit.prevent="addTask">
+			<label for="newitem">Add to the todo list</label>
+			<input type="text" name="newitem" id="newitem" v-model="inputName" v-bind:class="{error: hasError}">
+			<button type="submit">Add item</button>
+		</form>
+	</main>
+
+
+	<script src="main.js"></script>
+
+</body>
+
+</html>
